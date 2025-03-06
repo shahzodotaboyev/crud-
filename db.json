@@ -1,0 +1,60 @@
+{
+  "invoices": [
+    {
+      "id": "1",
+      "date": "2025-03-04",
+      "customer": "John",
+      "payable": "554",
+      "paid": "63456",
+      "due": "34"
+    },
+    {
+      "id": "2",
+      "date": "2025-03-05",
+      "customer": "Alice",
+      "payable": "1200",
+      "paid": "500",
+      "due": "700"
+    },
+    {
+      "id": "3",
+      "date": "2025-03-06",
+      "customer": "Michael",
+      "payable": "3400",
+      "paid": "3000",
+      "due": "400"
+    },
+    {
+      "id": "4",
+      "date": "2025-03-07",
+      "customer": "Sophia",
+      "payable": "750",
+      "paid": "750",
+      "due": "0"
+    },
+    {
+      "id": "5",
+      "date": "2025-03-08",
+      "customer": "David",
+      "payable": "2900",
+      "paid": "2500",
+      "due": "400"
+    },
+    {
+      "id": "6",
+      "date": "2025-03-09",
+      "customer": "Emma",
+      "payable": "1800",
+      "paid": "1800",
+      "due": "0"
+    },
+    {
+      "id": "7",
+      "date": "2025-03-10",
+      "customer": "Furqat",
+      "payable": "4150",
+      "paid": "4000",
+      "due": "150"
+    }
+  ]
+}
