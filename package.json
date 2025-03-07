@@ -6,9 +6,10 @@
         "start": "webpack serve --mode development",
         "build": "webpack --mode production",
         "server": "json-server --watch db.json --port 5000",
-         "client": "react-scripts start"
+        "client": "react-scripts start"
     },
     "dependencies": {
+        "@tanstack/react-query": "^5.67.1",
         "axios": "^1.8.1",
         "postcss": "^8.3.6",
         "postcss-loader": "^6.1.1",
@@ -22,6 +23,7 @@
         "@babel/preset-react": "^7.14.5",
         "autoprefixer": "^10.4.20",
         "babel-loader": "^8.2.2",
+        "concurrently": "^8.2.2",
         "css-loader": "^6.2.0",
         "html-webpack-plugin": "^5.3.2",
         "mini-css-extract-plugin": "^2.1.0",
@@ -30,8 +32,6 @@
         "tailwindcss": "^3.0.0",
         "webpack": "^5.47.0",
         "webpack-cli": "^4.7.2",
-        "webpack-dev-server": "^4.0.0",
-        "concurrently": "^8.2.2"
-
+        "webpack-dev-server": "^4.0.0"
     }
 }

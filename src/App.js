@@ -1,78 +1,42 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+import {
+  useFetchInvoices,
+  useAddInvoice,
+  useDeleteInvoice,
+  useEditInvoice,
+} from "./service/api";
 import InvoiceTable from "./components/InvoiceTable";
 import InvoiceForm from "./components/InvoiceForm";
-
-const API_URL = "http://localhost:5000/invoices";
+import "./styles.css";
 
 function App() {
-  const [invoices, setInvoices] = useState([]);
-  const [filteredInvoices, setFilteredInvoices] = useState([]);
   const [selectedInvoice, setSelectedInvoice] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
 
-  useEffect(() => {
-    fetch(API_URL)
-      .then(res => res.json())
-      .then(data => {
-        setInvoices(data);
-        setFilteredInvoices(data);
-      })
-      .catch(err => console.error("Xato:", err));
-  }, []);
+  const { data: invoices = [], isLoading, error } = useFetchInvoices();
+  const addInvoiceMutation = useAddInvoice();
+  const deleteInvoiceMutation = useDeleteInvoice();
+  const editInvoiceMutation = useEditInvoice();
 
-  useEffect(() => {
-    setFilteredInvoices(
-      invoices.filter((invoice) =>
-        invoice.customer.toLowerCase().includes(searchTerm.toLowerCase())
-      )
-    );
-  }, [searchTerm, invoices]);
+  const filteredInvoices = invoices.filter((invoice) =>
+    invoice.customer.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   const addInvoice = (invoice) => {
-    const newInvoice = { 
-      ...invoice, 
-      id: invoices.length ? invoices[invoices.length - 1].id + 1 : 1 
-    };
-
-    fetch(API_URL, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(newInvoice),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        const updatedInvoices = [...invoices, data];
-        setInvoices(updatedInvoices);
-        setFilteredInvoices(updatedInvoices);
-      })
-      .catch((error) => console.error("Error adding invoice:", error));
+    addInvoiceMutation.mutate({
+      ...invoice,
+      id: invoices.length ? invoices[invoices.length - 1].id + 1 : 1,
+    });
   };
 
   const deleteInvoice = (id) => {
-    fetch(`${API_URL}/${id}`, { method: "DELETE" })
-      .then(() => {
-        const updatedInvoices = invoices.filter((inv) => inv.id !== id);
-        setInvoices(updatedInvoices);
-        setFilteredInvoices(updatedInvoices);
-      })
-      .catch((error) => console.error("Error deleting invoice:", error));
+    deleteInvoiceMutation.mutate(id);
   };
 
   const editInvoice = (updatedInvoice) => {
-    fetch(`${API_URL}/${updatedInvoice.id}`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(updatedInvoice),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        const updatedInvoices = invoices.map((inv) => (inv.id === data.id ? data : inv));
-        setInvoices(updatedInvoices);
-        setFilteredInvoices(updatedInvoices);
-        setSelectedInvoice(null);
-        document.body.style.overflow = "auto";
-      })
-      .catch((error) => console.error("Error updating invoice:", error));
+    editInvoiceMutation.mutate(updatedInvoice);
+    setSelectedInvoice(null);
+    document.body.style.overflow = "auto";
   };
 
   const openModal = (invoice) => {
@@ -84,6 +48,9 @@ function App() {
     setSelectedInvoice(null);
     document.body.style.overflow = "auto";
   };
+
+  if (isLoading) return <div>Yuklanmoqda...</div>;
+  if (error) return <div>Xatolik yuz berdi!</div>;
 
   return (
     <div className="container mx-auto p-4">
@@ -115,11 +82,11 @@ function App() {
       </div>
 
       {selectedInvoice && (
-        <InvoiceForm 
-          invoice={selectedInvoice} 
-          addInvoice={addInvoice} 
-          editInvoice={editInvoice} 
-          closeModal={closeModal} 
+        <InvoiceForm
+          invoice={selectedInvoice}
+          addInvoice={addInvoice}
+          editInvoice={editInvoice}
+          closeModal={closeModal}
         />
       )}
 
