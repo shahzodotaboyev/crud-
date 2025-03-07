@@ -35,7 +35,10 @@ export const useDeleteInvoice = () => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (id) => {
-      await fetch(`${API_URL}/${id}`, { method: "DELETE" });
+      const res = await fetch(`${API_URL}/${id}`, {
+        method: "DELETE",
+      });
+      if (!res.ok) throw new Error("Xatolik yuz berdi");
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["invoices"] });

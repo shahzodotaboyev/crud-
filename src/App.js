@@ -19,7 +19,7 @@ function App() {
   const editInvoiceMutation = useEditInvoice();
 
   const filteredInvoices = invoices.filter((invoice) =>
-    invoice.customer.toLowerCase().includes(searchTerm.toLowerCase())
+    invoice.customer?.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   const addInvoice = (invoice) => {
@@ -91,7 +91,7 @@ function App() {
       )}
 
       <InvoiceTable
-        invoices={filteredInvoices}
+        invoices={filteredInvoices} 
         deleteInvoice={deleteInvoice}
         openModal={openModal}
       />

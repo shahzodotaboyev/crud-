@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 
 function InvoiceForm({ invoice, addInvoice, editInvoice, closeModal }) {
   const [formData, setFormData] = useState({
-    id: "",
     date: "",
     customer: "",
     payable: "",
@@ -26,7 +25,7 @@ function InvoiceForm({ invoice, addInvoice, editInvoice, closeModal }) {
     if (formData.id) {
       editInvoice(formData);
     } else {
-      addInvoice({ ...formData, id: Date.now().toString() });
+      addInvoice({ ...formData });
     }
     closeModal();
   };

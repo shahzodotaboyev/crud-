@@ -3,7 +3,7 @@
     {
       "id": "1",
       "date": "2025-03-04",
-      "customer": "John",
+      "customer": "Johnbek",
       "payable": "554",
       "paid": "63456",
       "due": "34"
@@ -39,22 +39,6 @@
       "payable": "2900",
       "paid": "2500",
       "due": "400"
-    },
-    {
-      "id": "6",
-      "date": "2025-03-09",
-      "customer": "Emma",
-      "payable": "1800",
-      "paid": "1800",
-      "due": "0"
-    },
-    {
-      "id": "61",
-      "date": "2025-03-12",
-      "customer": "Hello ",
-      "payable": "554",
-      "paid": "5465",
-      "due": "546"
     }
   ]
 }
